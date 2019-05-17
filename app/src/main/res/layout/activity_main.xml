@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/facebook_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:text="Facebook Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/db_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="DataBase Task"
+        app:layout_constraintStart_toStartOf="@+id/facebook_task"
+        app:layout_constraintTop_toBottomOf="@+id/facebook_task" />
+
+    <Button
+        android:id="@+id/search_bu"
+        android:layout_width="131dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:text="Search Task"
+        app:layout_constraintStart_toStartOf="@+id/db_task"
+        app:layout_constraintTop_toBottomOf="@+id/db_task" />
+
+    <Button
+        android:id="@+id/contact_task"
+        android:layout_width="137dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
+        android:text="contacts task"
+        app:layout_constraintStart_toStartOf="@+id/search_bu"
+        app:layout_constraintTop_toBottomOf="@+id/search_bu" />
+
+</android.support.constraint.ConstraintLayout>
