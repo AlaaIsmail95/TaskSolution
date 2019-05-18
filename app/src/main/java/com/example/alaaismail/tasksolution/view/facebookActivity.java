@@ -1,6 +1,9 @@
 package com.example.alaaismail.tasksolution.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +25,8 @@ import com.example.alaaismail.tasksolution.ModelView.facebookViewModel;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.zip.Inflater;
 
@@ -33,6 +38,7 @@ public class facebookActivity extends AppCompatActivity {
     CheckBox remmberme;
     CallbackManager callbackManager;
     String username,firstName,Lastname;
+    Bitmap bitmap;
 
 
     @Override
@@ -59,7 +65,7 @@ public class facebookActivity extends AppCompatActivity {
 
         bu_fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
 
 
                 Profile profile = Profile.getCurrentProfile();
@@ -68,8 +74,9 @@ public class facebookActivity extends AppCompatActivity {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
+                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                    StrictMode.setThreadPolicy(policy);
                                     username = object.getString("email");
-                                    try {
                                         if (remmberme.isChecked()) {
 
                                             FacebookViewModel.RemmberLogin(facebookActivity.this,username, firstName, Lastname);
@@ -78,11 +85,15 @@ public class facebookActivity extends AppCompatActivity {
                                             FacebookViewModel.forgetLogin(facebookActivity.this,username, firstName, Lastname);
 
                                         }
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                    URL imageURL = new URL("https://graph.facebook.com/" + loginResult.getAccessToken().getUserId() + "/picture?type=large");
+                                    bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+
+                                    ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                                    byte[] byteArray = bStream.toByteArray();
 
                                     Intent intent = new Intent(facebookActivity.this, loginActivity.class);
+                                    intent.putExtra("image",byteArray);
                                     startActivity(intent);
                                     facebookActivity.this.finish();
                                 }
