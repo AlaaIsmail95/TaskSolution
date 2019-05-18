@@ -12,7 +12,7 @@ import com.example.alaaismail.tasksolution.view.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button facebook_task , db_task , search_task , phone_task;
+    Button facebook_task , db_task , search_task , phone_task,calendar_task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         db_task = findViewById(R.id.db_task);
         search_task = findViewById(R.id.search_bu);
         phone_task = findViewById(R.id.contact_task);
+        calendar_task = findViewById(R.id.calender_bu);
 
         facebook_task.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,5 +66,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        calendar_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ToCalendar_task = new Intent(MainActivity.this, calendarActivity.class);
+                startActivity(ToCalendar_task);
+            }
+        });
     }
 }

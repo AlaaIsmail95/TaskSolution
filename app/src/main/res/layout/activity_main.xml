@@ -43,4 +43,13 @@
         app:layout_constraintStart_toStartOf="@+id/search_bu"
         app:layout_constraintTop_toBottomOf="@+id/search_bu" />
 
+    <Button
+        android:id="@+id/calender_bu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Calendar task"
+        app:layout_constraintStart_toStartOf="@+id/contact_task"
+        app:layout_constraintTop_toBottomOf="@+id/contact_task" />
+
 </android.support.constraint.ConstraintLayout>

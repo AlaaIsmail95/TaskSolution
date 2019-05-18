@@ -17,7 +17,7 @@ public class loginActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     Button logout;
 
-    TextView userName;
+    TextView userName , email_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,15 @@ public class loginActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.logOut);
         userName = findViewById(R.id.userName);
+        email_tv = findViewById(R.id.email_tv);
+
         sharedPref = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
         String user_Name = sharedPref.getString("FirstName", "") + " " + sharedPref.getString("LastName", "");
 
+        String email = sharedPref.getString("Username", "");
         userName.setText(user_Name);
+        email_tv.setText(email);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

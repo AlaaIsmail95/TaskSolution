@@ -22,6 +22,7 @@ import com.example.alaaismail.tasksolution.ModelView.facebookViewModel;
 
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.zip.Inflater;
 
 
@@ -54,6 +55,7 @@ public class facebookActivity extends AppCompatActivity {
 
 
         callbackManager = CallbackManager.Factory.create();
+        bu_fbLogin.setReadPermissions(Arrays.asList("email"));
 
         bu_fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -67,6 +69,22 @@ public class facebookActivity extends AppCompatActivity {
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 try {
                                     username = object.getString("email");
+                                    try {
+                                        if (remmberme.isChecked()) {
+
+                                            FacebookViewModel.RemmberLogin(facebookActivity.this,username, firstName, Lastname);
+
+                                        } else {
+                                            FacebookViewModel.forgetLogin(facebookActivity.this,username, firstName, Lastname);
+
+                                        }
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Intent intent = new Intent(facebookActivity.this, loginActivity.class);
+                                    startActivity(intent);
+                                    facebookActivity.this.finish();
                                 }
                                 catch (Exception e){
                                     e.printStackTrace();
@@ -84,22 +102,7 @@ public class facebookActivity extends AppCompatActivity {
 
                 tv_username.setText(username);
                 name.setText(firstName+ " "+Lastname);
-                try {
-                    if (remmberme.isChecked()) {
 
-                        FacebookViewModel.RemmberLogin(facebookActivity.this,username, firstName, Lastname);
-
-                    } else {
-                        FacebookViewModel.forgetLogin(facebookActivity.this,username, firstName, Lastname);
-
-                    }
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                Intent intent = new Intent(facebookActivity.this, loginActivity.class);
-                startActivity(intent);
-                facebookActivity.this.finish();
             }
 
             @Override
